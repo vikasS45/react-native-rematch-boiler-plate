@@ -1,4 +1,4 @@
-package com.app.adcast;
+package com.app.cricketfeed;
 
 import android.app.Application;
 import android.content.Context;

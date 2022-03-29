@@ -1,5 +1,5 @@
 import React from 'react';
-import {Platform} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {
   Flame,
@@ -9,10 +9,10 @@ import {
   Profile,
   ProfileFocused,
 } from '../assets/svgs';
-import {HomeNavigator} from './HomeStack';
-import {ChatsNavigator} from './ChatsStack';
-import {ProfileNavigator} from './ProfileStack';
-
+import {NewsNavigator} from './NewsStack';
+import {PredictionNavigator} from './PredictionStack';
+import {Typography, Colors} from 'react-native-ui-lib';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 const Tab = createBottomTabNavigator();
 
 export const BottomTabs = () => {
@@ -21,55 +21,65 @@ export const BottomTabs = () => {
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let iconName;
-          if (route.name === 'Home') {
-            iconName = focused ? <FlameFocus /> : <Flame />;
-          } else if (route.name === 'Chats') {
-            iconName = focused ? <ChatsFocused /> : <Chats />;
-          } else if (route.name === 'Me') {
-            iconName = focused ? <ProfileFocused /> : <Profile />;
+          if (route.name === 'News') {
+            iconName = 'book';
+          } else if (route.name === 'Predictions') {
+            iconName = 'videocamera';
           }
-          return iconName;
+          return focused ? (
+            <>
+              {/* <View style={styles.indicator} /> */}
+              <AntDesign name={iconName} size={25} color={color} />
+            </>
+          ) : (
+            <AntDesign name={iconName} size={25} color={color} />
+          );
         },
       })}
       tabBarOptions={{
-        showLabel: false,
-        style: {
-          height: Platform.OS === 'ios' ? 84 : 60,
-          backgroundColor: '#ffffff',
-          paddingHorizontal: 15,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 4,
-          },
-          shadowOpacity: 0.29,
-          shadowRadius: 4.65,
-          elevation: 7,
-        },
+        // showLabel: false,
+        // labelStyle: styles.labelStyle,
+        activeTintColor: Colors.white,
+        inactiveTintColor: Colors.lightWhite,
+        style: styles.tabStyle,
       }}>
       <Tab.Screen
-        name="Home"
-        component={HomeNavigator}
+        name="News"
+        component={NewsNavigator}
         options={{
-          tabBarLabel: '',
+          title: 'News',
         }}
       />
       <Tab.Screen
-        name="Chats"
-        component={ChatsNavigator}
+        name="Predictions"
+        component={PredictionNavigator}
         options={{
-          tabBarLabel: '',
-        }}
-      />
-      <Tab.Screen
-        name="Me"
-        component={ProfileNavigator}
-        options={{
-          tabBarLabel: '',
+          title: 'Predictions',
         }}
       />
     </Tab.Navigator>
   );
 };
+
+const styles = StyleSheet.create({
+  labelStyle: {
+    fontFamily: Typography.primaryFontFamilyMedium,
+    fontSize: Typography.primaryELHeading,
+    fontWeight: '400',
+    marginBottom: 9,
+  },
+  tabStyle: {
+    height: Platform.OS === 'ios' ? 70 : 60,
+    backgroundColor: Colors.black,
+    flexDirection: 'row',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.29,
+    shadowRadius: 4.65,
+    elevation: 7,
+    paddingBottom: 10,
+  },
+});

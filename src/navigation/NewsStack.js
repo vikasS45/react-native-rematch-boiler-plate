@@ -5,7 +5,7 @@ import {
 } from '@react-navigation/stack';
 import {Colors, View, Typography} from 'react-native-ui-lib';
 import {StyleSheet} from 'react-native';
-import Home from '../screens/contents/Home';
+import News from '../screens/contents/News';
 import SingleChat from '../screens/contents/Chats/SingleChat';
 import PersonProfile from '../screens/contents/Chats/PersonProfile';
 import {Dots, BackButton} from '../assets/svgs';
@@ -29,51 +29,39 @@ const defaultNavOptions = {
   },
 };
 
-export const HomeNavigator = ({navigation, route}) => {
+export const NewsNavigator = ({navigation, route}) => {
   const routeName = getFocusedRouteNameFromRoute(route);
   useEffect(() => {
     navigation.setOptions({
-      tabBarVisible: routeName === 'Home' || typeof routeName === 'undefined',
+      tabBarVisible: routeName === 'News' || typeof routeName === 'undefined',
     });
   }, [navigation, routeName]);
   return (
     <HomeStackNavigator.Navigator screenOptions={defaultNavOptions}>
       <HomeStackNavigator.Screen
-        name="Home"
-        component={Layout(Home)}
+        name="News"
+        component={Layout(News)}
         options={{
-          title: 'AdCast',
-          headerRight: () => (
-            <View style={styles.marginRight10}>
-              <Dots />
-            </View>
-          ),
+          headerShown: false,
         }}
       />
-      <HomeStackNavigator.Screen
+      {/* <HomeStackNavigator.Screen
         name="SingleChat"
         component={SingleChat}
         screenOptions={{
           tabBarVisible: false,
         }}
         options={{
-          headerBackImage: () => <BackButton color={'white'} />,
+          headerShown: false,
         }}
-      />
-      <HomeStackNavigator.Screen
+      /> */}
+      {/* <HomeStackNavigator.Screen
         name="PersonProfile"
         component={Layout(PersonProfile)}
         options={{
-          headerStyle: {
-            backgroundColor: 'transparent',
-          },
-          headerBackImage: () => <BackButton color={'white'} />,
-          title: '',
-          headerTransparent: {
-            position: 'absolute',
-          },
+          headerShown: false,
         }}
-      />
+      /> */}
     </HomeStackNavigator.Navigator>
   );
 };

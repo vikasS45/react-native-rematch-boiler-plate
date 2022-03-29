@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   CardStyleInterpolators,
   createStackNavigator,
 } from '@react-navigation/stack';
-import Profile from '../screens/contents/Profile';
+import Predictions from '../screens/contents/Predictions';
 import {StyleSheet} from 'react-native';
 import {Colors, View, Typography} from 'react-native-ui-lib';
 import {Dots, BackButton} from '../assets/svgs';
 import {Layout} from '../screens/Layout';
+import {getFocusedRouteNameFromRoute} from '@react-navigation/native';
 
 const ProfileStackNavigator = createStackNavigator();
 
@@ -26,20 +27,22 @@ const defaultNavOptions = {
   },
 };
 
-export const ProfileNavigator = ({navigation}) => {
+export const PredictionNavigator = ({navigation, route}) => {
+  const routeName = getFocusedRouteNameFromRoute(route);
+  useEffect(() => {
+    navigation.setOptions({
+      tabBarVisible:
+        routeName === 'Predictions' || typeof routeName === 'undefined',
+    });
+  }, [navigation, routeName]);
   return (
     <>
       <ProfileStackNavigator.Navigator screenOptions={defaultNavOptions}>
         <ProfileStackNavigator.Screen
-          name="Profile"
-          component={Layout(Profile)}
+          name="Predictions"
+          component={Layout(Predictions)}
           options={{
-            headerRight: () => (
-              <View style={styles.marginRight10}>
-                <Dots color="black" />
-              </View>
-            ),
-            headerBackImage: () => <BackButton color={'black'} />,
+            headerShown: false,
           }}
         />
       </ProfileStackNavigator.Navigator>

@@ -31,7 +31,7 @@ const Intro = props => {
   } = props;
 
   const navigateToNext = () => {
-    navigate('authType');
+    navigate('Home');
   };
 
   let pagination = () => {

@@ -6,6 +6,7 @@ import {
 import {Typography} from 'react-native-ui-lib';
 import Intro from '../screens/welcome/Intro';
 import AuthType from '../screens/auth/AuthType';
+import {BottomTabs} from '../navigation/BottomStack';
 import AuthNavigator from './AuthStack';
 import {Layout} from '../screens/Layout';
 
@@ -28,12 +29,17 @@ export const IntroNavigator = () => {
       <IntroStackNavigator.Screen
         name="intro"
         options={{title: 'Intro', headerShown: false}}
-        component={Layout(Intro)}
+        component={Intro}
       />
       <IntroStackNavigator.Screen
         name="authType"
         options={{title: 'Choose Login Type', headerShown: false}}
         component={Layout(AuthType)}
+      />
+      <IntroStackNavigator.Screen
+        name="Home"
+        options={{title: 'Choose Login Type', headerShown: false}}
+        component={Layout(BottomTabs)}
       />
       <IntroStackNavigator.Screen
         name="authentication"
